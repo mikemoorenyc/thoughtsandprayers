@@ -20,7 +20,7 @@ $run_info = json_decode(@file_get_contents('run_info.json'));
 //GET FIRST ONE;
 
 //NOTHING NEW
-if($newest['shooting_title'] === $run_info['shooting_title']) {
+if($newest['shooting_title'] === $run_info['shooting_title'] || $newest['shooting_location'] === $newest['shooting_location']) {
   http_response_code(404);
   die();
 }
@@ -44,8 +44,10 @@ $template_number = $run_info['last_template']++;
 if($template_number > count($templates) - 1) {
  $template_number = 0; 
 }
+//GET JUST THE CITY
+$city = trim(explode(',',$newest['shooting_location'])[0]); 
 //MAKE THE TWEET
-$tweet_text = str_replace("***SHOOTING LOCATION***",$newest['shooting_location'],$templates[$template_number]);
+$tweet_text = str_replace("***SHOOTING LOCATION***",$city,$templates[$template_number]);
 
 //SEND THE TWEET
 $twitterNew = new TwitterAPIExchange($settings);
