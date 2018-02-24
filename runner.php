@@ -15,6 +15,7 @@ if($_GET['dev'] !== 'yes') {
 
 $spreadsheet = @file_get_contents($spreadsheet_url);
 if(!$spreadsheet) {
+//ADD FAIL TIME
   http_response_code(404);
   die();
 }
@@ -66,8 +67,9 @@ foreach($comparers as $c) {
     $same_count++;
   }
 }
-//IF 2 or more are the same, it's probably the same
+//IF 2 or more are the same, it's probably the same. There's so many mass shootings, it could be possible that one happened on the same day in the same state. So, i'm guessing that if less than 3 things are the same, it's probably a new shooting. Call your senator.
 if($same_count >= 2) {
+  // ADD NO RUN TIME
   http_response_code(404);
   die();
 }
